@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 
 namespace StudentListAngular.Controllers
 {
@@ -13,7 +14,10 @@ namespace StudentListAngular.Controllers
         public ActionResult Groups()
         {
             List<Group> groups = s.getGroups();
-            return Json(groups, JsonRequestBehavior.AllowGet);
+            List<Object> mapped = groups.ConvertAll(
+                new Converter<Group, Object>(g => new { IDGroup = g.IDGroup, Name = g.Name, Stamp = g.Stamp })
+            );
+            return Json(mapped, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Add(Group group)

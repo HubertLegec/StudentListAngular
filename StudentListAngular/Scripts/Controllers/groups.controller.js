@@ -1,6 +1,6 @@
-﻿var GroupsController = function ($scope) {
+﻿var GroupsController = function ($scope, GroupService) {
     $scope.selectedGroup = undefined;
     $scope.groups = [];
 };
 
-GroupsController.$inject = ['$scope'];
+GroupsController.$inject = ['$scope', 'GroupService'];

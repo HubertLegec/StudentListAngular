@@ -2,7 +2,7 @@
     <div class="col-sm-8 full-height">
         <div class="row">
             <label class="col-sm-2">Grupa:</label>
-            <select ng-model="filterGroup" ng-options="g.name for g in groups" class="col-sm-8"></select>
+            <select ng-model="filterGroup" ng-options="g.Name for g in groups" class="col-sm-8"></select>
         </div>
         <div class="row">
             <label class="col-sm-2">Miasto:</label>
@@ -29,21 +29,21 @@
             </tr>
         </thead>
         <tbody>
-                <tr ng-repeat="student in students">
+                <tr ng-repeat="st in students" ng-click="onStudentClick(st)">
                     <td>
-                        {{student.FirstName}}
+                        {{st.FirstName}}
                     </td>
                     <td>
-                        {{student.LastName}}
+                        {{st.LastName}}
                     </td>
                     <td>
-                        {{student.BirthPlace}}
+                        {{st.BirthPlace}}
                     </td>
                     <td>
-                        {{student.Group.Name}}
+                        {{getGroupForStudent(st).Name}}
                     </td>
                     <td>
-                        {{student.IndexNo}}
+                        {{st.IndexNo}}
                     </td>
                 </tr>
         </tbody>
@@ -55,7 +55,7 @@
         <tr>
             <td class="col-sm-2">Grupa:</td>
             <td class="col-sm-6">
-               <select ng-model="selectedStudent.Group.Name" ng-options="g.name for g in groups"/>
+               <select ng-model="selectedStudent.group" ng-options="g.Name for g in groups"/>
             </td>
             <td class="col-sm-4 error-message">
                 

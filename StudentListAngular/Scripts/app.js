@@ -15,5 +15,7 @@ studentListApp.config(function ($routeProvider) {
 });
 
 studentListApp.controller('StudentListController', StudentListController);
+studentListApp.controller('GroupController', GroupsController);
 
-studentListApp.controller('GroupController', GroupsController)
+studentListApp.service('StudentService', StudentService);
+studentListApp.service('GroupService', GroupService);
