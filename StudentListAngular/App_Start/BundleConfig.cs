@@ -26,6 +26,9 @@ namespace StudentListAngular
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/StudentListApp")
+                    .IncludeDirectory("~/Scripts/Controllers", "*.js")
+                    .Include("~/Scripts/app.js"));
         }
     }
 }
