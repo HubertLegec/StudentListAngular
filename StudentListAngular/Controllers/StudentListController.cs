@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentListAngular.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,8 +19,8 @@ namespace StudentListAngular.Controllers
 
         public ActionResult Students()
         {
-            List<Object> students = s.getStudents().ConvertAll(
-                new Converter<Student, object>(s => new {
+            List<StudentDTO> students = s.getStudents().ConvertAll(
+                new Converter<Student, StudentDTO>(s => new  StudentDTO(){
                     IDStudent = s.IDStudent,
                     IDGroup = s.IDGroup,
                     FirstName = s.FirstName,
@@ -35,7 +36,7 @@ namespace StudentListAngular.Controllers
 
         
         [HttpPost]
-        public ActionResult AddStudent(Student student)
+        public ActionResult AddStudent(StudentDTO student)
         {
             try
             {
@@ -61,7 +62,7 @@ namespace StudentListAngular.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditStudent(Student student)
+        public ActionResult EditStudent(StudentDTO student)
         {
             try
             {
@@ -76,6 +77,12 @@ namespace StudentListAngular.Controllers
                     string error = "Niepoprawne wartosci pol";
                     return Json(new { value = error, JsonRequestBehavior.AllowGet });
                 }
+            }
+            catch (KeyNotFoundException e)
+            {
+                string error = "Rekord zostal usuniety przez kogos innego!";
+                Response.StatusCode = 404;
+                return Json(new { value = error });
             }
             catch (Exception e)
             {
@@ -96,12 +103,19 @@ namespace StudentListAngular.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteStudent(Student student)
+        public ActionResult DeleteStudent(StudentDTO student)
         {
             try
             {
-                s.deleteStudent(student.IDGroup, student.Stamp);
+                byte[] stamp = Convert.FromBase64String(student.Stamp);
+                s.deleteStudent(student.IDStudent, stamp);
                 return Json(new { value = "OK"});
+            }
+            catch(KeyNotFoundException e)
+            {
+                string error = "Rekord zostal usuniety przez kogos innego!";
+                Response.StatusCode = 404;
+                return Json(new { value = error });
             }
             catch (Exception e)
             {

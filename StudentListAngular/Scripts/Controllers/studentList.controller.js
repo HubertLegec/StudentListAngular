@@ -48,7 +48,6 @@
     }
 
     $scope.onDeleteClick = function () {
-        console.log('del click');
         StudentService.deleteStudent($scope.selectedStudent,
             function (response) {
                 controller.reloadData();
@@ -99,19 +98,21 @@
     }
 
     this.filterStudentList = function(students, city, group) {
-        return students.filter(function (st) {
+        var filteredStudents = students.filter(function (st) {
             return (city == undefined || city.length === 0 || st.BirthPlace == undefined || st.BirthPlace.length === 0 || st.BirthPlace.toLowerCase().indexOf(city.toLowerCase()) >= 0)
                 && (group == undefined || group.Name.length === 0 || st.IDGroup == group.IDGroup);
-        }).map(function (st) { return Object.assign({}, st, {BirthDate: controller.formatDate(st.BirthDate)})});
+        });
+        return filteredStudents.map(function (st) {
+            return Object.assign(st, { BirthDate: controller.formatDate(st.BirthDate) })
+        });
     }
 
     this.formatDate = function (jsonDate) {
-        if (!date) {
+        if (!jsonDate) {
             return;
         }
         var milli = jsonDate.replace(/\/Date\((-?\d+)\)\//, '$1');
-        var date = new Date(parseInt(milli));
-        return date;
+        return new Date(parseInt(milli));
     }
 
     this.reloadData();

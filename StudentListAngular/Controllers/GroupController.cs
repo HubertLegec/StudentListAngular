@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentListAngular.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,13 +15,17 @@ namespace StudentListAngular.Controllers
         public ActionResult Groups()
         {
             List<Group> groups = s.getGroups();
-            List<Object> mapped = groups.ConvertAll(
-                new Converter<Group, Object>(g => new { IDGroup = g.IDGroup, Name = g.Name, Stamp = g.Stamp })
+            List<GroupDTO> mapped = groups.ConvertAll(
+                new Converter<Group, GroupDTO>(g => new Models.GroupDTO(){
+                    IDGroup = g.IDGroup,
+                    Name = g.Name,
+                    Stamp = Convert.ToBase64String(g.Stamp)
+                })
             );
             return Json(mapped, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Add(Group group)
+        public ActionResult Add(GroupDTO group)
         {
             try
             {
@@ -35,12 +40,18 @@ namespace StudentListAngular.Controllers
             }
         }
 
-        public ActionResult Edit(Group group)
+        public ActionResult Edit(GroupDTO group)
         {
             try
             {
                 s.updateGroup(group);
                 return Json(new { value = "OK" }, JsonRequestBehavior.AllowGet);
+            }
+            catch(KeyNotFoundException e)
+            {
+                Response.StatusCode = 404;
+                string error = "Rekord zostal usuniety przez kogos innego!";
+                return Json(new { value = error }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
@@ -60,12 +71,19 @@ namespace StudentListAngular.Controllers
             }
         }
 
-        public ActionResult Delete(Group group)
+        public ActionResult Delete(GroupDTO group)
         {
             try
             {
-                s.deleteGroup(group.IDGroup, group.Stamp);
+                byte[] stamp = Convert.FromBase64String(group.Stamp);
+                s.deleteGroup(group.IDGroup, stamp);
                 return Json(new { value = "OK" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (KeyNotFoundException e)
+            {
+                Response.StatusCode = 404;
+                string error = "Rekord zostal usuniety przez kogos innego!";
+                return Json(new { value = error }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

@@ -136,7 +136,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\GroupDTO.cs" />
     <Compile Include="Models\Storage.cs" />
+    <Compile Include="Models\StudentDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\StorageContext.cs" />
     <Compile Include="Models\Student.cs" />
