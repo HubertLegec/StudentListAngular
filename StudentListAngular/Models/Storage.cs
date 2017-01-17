@@ -24,6 +24,8 @@ namespace StudentListAngular
         {
             using (var db = new StorageContext())
             {
+                newStudent.IDGroup = newStudent.Group.IDGroup;
+                newStudent.Group = null;
                 db.Students.Add(newStudent);
                 db.SaveChanges();
             }
@@ -45,7 +47,7 @@ namespace StudentListAngular
                     original.IndexNo = newStudent.IndexNo;
                     original.BirthPlace = newStudent.BirthPlace;
                     original.BirthDate = newStudent.BirthDate;
-                    original.IDGroup = newStudent.IDGroup;
+                    original.IDGroup = newStudent.Group.IDGroup;
                     db.SaveChanges();
                 }
             }

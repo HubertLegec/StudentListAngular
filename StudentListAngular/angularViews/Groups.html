@@ -7,9 +7,9 @@
             </tr>
         </thead>
         <tbody>
-                <tr ng-repeat="group in groups">
+                <tr ng-repeat="group in groups" ng-click="onGroupClick(group)">
                     <td>
-                       {{group.name}}
+                       {{group.Name}}
                     </td>
                 </tr>
         </tbody>
@@ -21,16 +21,16 @@
     <div class="edit-group-box col-sm-12">
         <div class="col-sm-1" style="text-align: right">Nazwa:</div>
         <div class="col-sm-5">
-            <input type="text" ng-model="selectedGroup.name" />
+            <input type="text" ng-model="selectedGroup.Name" required />
         </div>
         <div class="col-sm-2">
-            <input class="button" type="submit" formaction="/Group/Add" value="Nowy" />
+            <input class="button" type="submit" ng-click="onAddClick()" value="Nowy" />
         </div>
         <div class="col-sm-2">
-            <input class="button" type="submit" formaction="/Group/Edit" value="Edytuj" />
+            <input class="button" type="submit" ng-click="onEditClick()" value="Zapisz" ng-disabled="!selectedGroup.IDGroup" />
         </div>
         <div class="col-sm-2">
-            <input class="button" type="submit" formaction="/Group/Delete" value="Usuń" />
+            <input class="button" type="submit" ng-click="onDeleteClick()" value="Usuń" ng-disabled="!selectedGroup.IDGroup" />
         </div>
     </div>
     </form>

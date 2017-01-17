@@ -104,3 +104,7 @@ button {
     text-align: left !important;
     color: red;
 }
+
+.user-form .ng-invalid {
+    border:1px solid red;
+}

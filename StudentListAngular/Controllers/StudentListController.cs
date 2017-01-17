@@ -26,13 +26,15 @@ namespace StudentListAngular.Controllers
                     LastName = s.LastName,
                     BirthDate = s.BirthDate,
                     BirthPlace = s.BirthPlace,
-                    IndexNo = s.IndexNo
+                    IndexNo = s.IndexNo,
+                    Stamp = Convert.ToBase64String(s.Stamp)
                 })
             );
             return Json(students, JsonRequestBehavior.AllowGet);
         }
 
-        [ValidateInput(true)]
+        
+        [HttpPost]
         public ActionResult AddStudent(Student student)
         {
             try
@@ -58,7 +60,7 @@ namespace StudentListAngular.Controllers
             }
         }
 
-        [ValidateInput(true)]
+        [HttpPost]
         public ActionResult EditStudent(Student student)
         {
             try
@@ -93,18 +95,19 @@ namespace StudentListAngular.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult DeleteStudent(Student student)
         {
             try
             {
-                s.deleteStudent(student.IDStudent, student.Stamp);
-                return Json(new { value = "OK"}, JsonRequestBehavior.AllowGet);
+                s.deleteStudent(student.IDGroup, student.Stamp);
+                return Json(new { value = "OK"});
             }
             catch (Exception e)
             {
                 string error = "Rekord zostal zmodyfikowany przez kogos innego!";
                 Response.StatusCode = 409;
-                return Json(new { value = error}, JsonRequestBehavior.AllowGet);
+                return Json(new { value = error});
             }
         }
     }
