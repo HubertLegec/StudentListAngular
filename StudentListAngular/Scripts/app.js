@@ -1,7 +1,7 @@
 ﻿
 
 // create the module and name it scotchApp
-var studentListApp = angular.module('studentListApp', ['ngRoute']);
+var studentListApp = angular.module('studentListApp', ['ngRoute', 'ui.bootstrap']);
 
 // create the controller and inject Angular's $scope
 studentListApp.config(function ($routeProvider) {

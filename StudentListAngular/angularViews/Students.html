@@ -29,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-                <tr ng-repeat="st in students" ng-click="onStudentClick(st)">
+                <tr ng-repeat="st in students.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-click="onStudentClick(st)">
                     <td>
                         {{st.FirstName}}
                     </td>
@@ -48,6 +48,7 @@
                 </tr>
         </tbody>
     </table>
+    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage"></pagination>
 </div>
 <hr />
 <div class="row">

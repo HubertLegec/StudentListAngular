@@ -1,6 +1,6 @@
 ﻿var StudentListController = function ($scope, StudentService, GroupService) {
     this.students = [];
-    $scope.filteredStudents = this.students;
+    $scope.students = this.students;
     $scope.groups = [];
     $scope.filterGroups = [];
     $scope.selectedStudent = {};
@@ -9,6 +9,15 @@
     $scope.error = undefined;
     var controller = this;
     var studentList;
+
+
+    $scope.totalItems = 0;
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = 10;
+
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
 
     $scope.onClearClick = function () {
         $scope.filterCity = undefined;
@@ -83,6 +92,7 @@
             var group = $scope.filterGroup;
             controller.studentList = data.data;
             $scope.students = controller.filterStudentList(data.data, city, group);
+            $scope.totalItems = $scope.students.length;
         });
         $scope.error = undefined;
         $scope.selectedStudent = {};
