@@ -110,7 +110,7 @@
         </tr>
         <tr>
             <td colspan="2" class="col-sm-8">
-                <input class="button" type="submit" ng-click="onNewClick(selectedStudent)" value="Nowy" />
+                <input class="button" type="submit" ng-click="onNewClick(selectedStudent)" value="Nowy" ng-disabled="!addEnabled"/>
                 <input class="button" type="submit" ng-click="onEditClick(selectedStudent)" value="Zapisz" ng-disabled="!selectedStudent.IDStudent" />
                 <input class="button" type="submit" ng-click="onDeleteClick()" value="Usuń" ng-disabled="!selectedStudent.IDStudent" />
             </td>

@@ -7,8 +7,10 @@
     $scope.filterCity = undefined;
     $scope.filterGroup = undefined;
     $scope.error = undefined;
+    $scope.addEnabled = true;
     var controller = this;
     var studentList;
+    var indexNo;
 
 
     $scope.totalItems = 0;
@@ -28,7 +30,7 @@
     $scope.onFilterClick = function () {
         var city = $scope.filterCity;
         var group = $scope.filterGroup;
-        $scope.students = controller.filterStudentList(controller.studentList, city, group);
+        $scope.students = controller.filterStudentList(controller.studentList, city, group, false);
     };
 
     $scope.onNewClick = function () {
@@ -60,8 +62,13 @@
     $scope.onStudentClick = function (student) {
         if ($scope.selectedStudent.IDStudent  === student.IDStudent) {
             $scope.selectedStudent = {};
+            $scope.addEnabled = true;
         } else {
             $scope.selectedStudent = Object.assign({}, student, { group: $scope.getGroupForStudent(student) });
+            controller.indexNo = $scope.selectedStudent.IndexNo;
+            $scope.$watch('selectedStudent.IndexNo', function (newVal, oldVal) {
+                $scope.addEnabled = (newVal != controller.indexNo);
+            });
         }
     }
 
@@ -75,11 +82,12 @@
         return group;
     }
 
+    $scope.isSame
+
     this.reloadData = function () {
         GroupService.getGroups().then(function (data) {
             $scope.groups = data.data;
-            $scope.filterGroups = data.data;
-            $scope.filterGroups.push({Name: ""});
+            $scope.filterGroups = data.data.concat([{ Name: "" }]);
             if ($scope.filterGroup) {
                 $scope.filterGroup = $scope.groups.find(function (g) {
                     return g.IDGroup === $scope.filterGroup.IDGroup;
@@ -90,25 +98,27 @@
             var city = $scope.filterCity;
             var group = $scope.filterGroup;
             controller.studentList = data.data;
-            $scope.students = controller.filterStudentList(data.data, city, group);
+            $scope.students = controller.filterStudentList(data.data, city, group, true);
             $scope.totalItems = $scope.students.length;
         });
         $scope.error = undefined;
         $scope.selectedStudent = {};
     }
 
-    this.filterStudentList = function(students, city, group) {
+    this.filterStudentList = function(students, city, group, formatDate) {
         var filteredStudents = students.filter(function (st) {
-            return (city == undefined || city.length === 0 || st.BirthPlace == undefined || st.BirthPlace.length === 0 || st.BirthPlace.toLowerCase().indexOf(city.toLowerCase()) >= 0)
+            return (city == undefined || city.length === 0 ||
+                (st.BirthPlace == undefined && (city == undefined || city.length === 0)) ||
+                (st.BirthPlace != undefined && st.BirthPlace.toLowerCase().indexOf(city.toLowerCase()) >= 0))
                 && (group == undefined || group.Name.length === 0 || st.IDGroup == group.IDGroup);
         });
-        return filteredStudents.map(function (st) {
+        return formatDate ? filteredStudents.map(function (st) {
             return Object.assign(st, { BirthDate: controller.formatDate(st.BirthDate) })
-        });
+        }) : filteredStudents;
     }
 
     this.formatDate = function (jsonDate) {
-        if (!jsonDate) {
+        if (jsonDate == undefined) {
             return;
         }
         var milli = jsonDate.replace(/\/Date\((-?\d+)\)\//, '$1');
