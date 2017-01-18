@@ -8,7 +8,6 @@ namespace StudentListAngular.Models
 {
     public class StudentDTO
     {
-        [Required]
         public int IDStudent { get; set; }
         [Required]
         public int IDGroup { get; set; }
@@ -20,7 +19,6 @@ namespace StudentListAngular.Models
         public DateTime? BirthDate { get; set; }
         [Required]
         public string IndexNo { get; set; }
-        [Required]
         public String Stamp { get; set; }
     }
 }

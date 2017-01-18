@@ -27,7 +27,6 @@ namespace StudentListAngular
             {
                 Student s = new Student()
                 {
-                    IDStudent = newStudent.IDStudent,
                     IDGroup = newStudent.IDGroup,
                     FirstName = newStudent.FirstName,
                     LastName = newStudent.LastName,
@@ -99,9 +98,7 @@ namespace StudentListAngular
             {
                 Group g = new Group()
                 {
-                    IDGroup = newGroup.IDGroup,
-                    Name = newGroup.Name,
-                    Stamp = Convert.FromBase64String(newGroup.Stamp)
+                    Name = newGroup.Name
                 };
                 db.Groups.Add(g);
                 db.SaveChanges();

@@ -33,7 +33,10 @@
     };
 
     $scope.onNewClick = function () {
-        StudentService.addStudent($scope.selectedStudent, function (response) {
+        var stud = $scope.selectedStudent;
+        console.log('stud', stud);
+        stud.IDGroup = stud.group ? stud.group.IDGroup : undefined;
+        StudentService.addStudent(stud, function (response) {
             controller.reloadData();
         }, function (response) {
             $scope.error = response.data.value;
@@ -41,7 +44,9 @@
     }
 
     $scope.onEditClick = function () {
-        StudentService.editStudent($scope.selectedStudent, function (response) {
+        var stud = $scope.selectedStudent;
+        stud.IDGroup = stud.group ? stud.group.IDGroup : undefined;
+        StudentService.editStudent(stud, function (response) {
             controller.reloadData();
         }, function (response) {
             $scope.error = response.data.value;
