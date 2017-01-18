@@ -10,6 +10,7 @@ namespace StudentListAngular.Controllers
 {
     public class StudentListController : Controller
     {
+        readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Storage s = new Storage();
 
         public ActionResult Index()
@@ -19,6 +20,7 @@ namespace StudentListAngular.Controllers
 
         public ActionResult Students()
         {
+            logger.Info("get students");
             List<StudentDTO> students = s.getStudents().ConvertAll(
                 new Converter<Student, StudentDTO>(s => new  StudentDTO(){
                     IDStudent = s.IDStudent,
@@ -38,6 +40,7 @@ namespace StudentListAngular.Controllers
         [HttpPost]
         public ActionResult AddStudent(StudentDTO student)
         {
+            logger.Info("add student");
             try
             {
                 if (ModelState.IsValid)
@@ -74,6 +77,7 @@ namespace StudentListAngular.Controllers
         [HttpPost]
         public ActionResult EditStudent(StudentDTO student)
         {
+            logger.Info("edit student");
             try
             {
                 if (ModelState.IsValid)
@@ -115,6 +119,7 @@ namespace StudentListAngular.Controllers
         [HttpPost]
         public ActionResult DeleteStudent(StudentDTO student)
         {
+            logger.Info("delete student");
             try
             {
                 byte[] stamp = Convert.FromBase64String(student.Stamp);
