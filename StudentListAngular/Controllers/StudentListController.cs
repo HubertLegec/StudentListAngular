@@ -55,9 +55,19 @@ namespace StudentListAngular.Controllers
             }
             catch (Exception e)
             {
-                Response.StatusCode = 400;
-                string error = "Numer indeksu musi byc unikalny!";
-                return Json(new { value = error, JsonRequestBehavior.AllowGet });
+                var ex = e.GetBaseException();
+                if (ex.Message.ToLower().Contains("unique"))
+                {
+                    Response.StatusCode = 400;
+                    string error = "Numer indeksu musi byc unikalny!";
+                    return Json(new { value = error, JsonRequestBehavior.AllowGet });
+                }
+                else
+                {
+                    Response.StatusCode = 409;
+                    string error = "Wybrana grupa nie istnieje w bazie!";
+                    return Json(new { value = error, JsonRequestBehavior.AllowGet });
+                }
             }
         }
 

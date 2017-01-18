@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentListAngular", "StudentListAngular\StudentListAngular.csproj", "{740904B1-8C4C-4023-9991-0D5B61AF3D1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentListAngular.Tests", "StudentListAngular.Tests\StudentListAngular.Tests.csproj", "{132F26E9-03BB-4A20-9599-D09D1414E158}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentListAngular.Test", "StudentListAngular.Test\StudentListAngular.Test.csproj", "{7BFAAC65-365B-47F8-A107-C2C54BCA239D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{740904B1-8C4C-4023-9991-0D5B61AF3D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{740904B1-8C4C-4023-9991-0D5B61AF3D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{740904B1-8C4C-4023-9991-0D5B61AF3D1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{132F26E9-03BB-4A20-9599-D09D1414E158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{132F26E9-03BB-4A20-9599-D09D1414E158}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{132F26E9-03BB-4A20-9599-D09D1414E158}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{132F26E9-03BB-4A20-9599-D09D1414E158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BFAAC65-365B-47F8-A107-C2C54BCA239D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BFAAC65-365B-47F8-A107-C2C54BCA239D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BFAAC65-365B-47F8-A107-C2C54BCA239D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BFAAC65-365B-47F8-A107-C2C54BCA239D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
